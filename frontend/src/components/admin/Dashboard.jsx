@@ -1,6 +1,7 @@
 import React from 'react'
 import Layout from '../common/Layout'
 import Sidebar from '../common/Sidebar'
+import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
 
@@ -26,10 +27,10 @@ const Dashboard = () => {
                     <div className='card shadow'>
                         <div className='card-body'>
                           <h1>0</h1>
-                          <span>Users</span>
+                          <span>Brands</span>
                         </div>
                         <div className='card-footer'>
-                          <a href="#">View Users</a>
+                          <Link to="/admin/Brands">View Brands</Link>
                         </div>
                     </div>
                 </div>
@@ -40,7 +41,7 @@ const Dashboard = () => {
                           <span>Orders</span>
                         </div>
                         <div className='card-footer'>
-                          <a href="#">View Orders</a>
+                          <Link to="/admin/Orders">View Orders</Link>
                         </div>
                     </div>
                 </div>
@@ -51,7 +52,18 @@ const Dashboard = () => {
                           <span>Products</span>
                         </div>
                         <div className='card-footer'>
-                          <a href="#">View Products</a>
+                          <Link to="/admin/Products">Products</Link>
+                        </div>
+                    </div>
+                </div>
+                <div className='col-md-4 py-4'>
+                    <div className='card shadow'>
+                        <div className='card-body'>
+                          <h1>0</h1>
+                          <span>Categories</span>
+                        </div>
+                        <div className='card-footer'>
+                          <Link to="/admin/categories">View Categories</Link>
                         </div>
                     </div>
                 </div>

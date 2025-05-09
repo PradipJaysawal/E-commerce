@@ -14,7 +14,7 @@ const sidebar = () => {
             <div className='card-body p-4'>
                 <ul>
                     <li>
-                    <a href="">Dashboard</a>
+                    <Link to="/admin/dashboard">Dashboard</Link>
                     </li>
                     <li>
                     <Link to="/admin/categories">Categories</Link>
@@ -28,15 +28,15 @@ const sidebar = () => {
                     <li>
                     <Link to="/admin/Orders">Orders</Link>
                     </li>
-                    <li>
+                    {/* <li>
                     <a href="">Users</a>
-                    </li>
+                    </li> */}
                     <li>
                     <Link to="/admin/shipping">Shipping</Link>
                     </li>
-                    <li>
+                    {/* <li>
                     <a href="">Change Password</a>
-                    </li>
+                    </li> */}
                     <li>
                     <li><a onClick={handleLogout} style={{ cursor: 'pointer' }}>Logout</a></li>
                     </li>
