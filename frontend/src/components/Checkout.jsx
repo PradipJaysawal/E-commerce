@@ -87,6 +87,51 @@ const Checkout = () => {
                 }
             })
         }
+
+
+
+        //handle eSewa payment
+          const handleEsewaPayment =() =>{
+            const formDatas = {
+              amount: 100,
+              tax_amount: 10,
+              total_amount: 110,
+              product_code: 'EPAYTEST',
+              product_service_charge: 0,
+              product_delivery_charge: 0,
+              success_url: 'https://developer.esewa.com.np/success',
+              failure_url: 'https://developer.esewa.com.np/failure',
+              signed_field_names: 'total_amount,transaction_uuid,product_code',
+            };
+        
+            formDatas.transaction_uuid = new Date().getTime();
+        
+        
+            const message = `total_amount=${formDatas.total_amount},transaction_uuid=${formDatas.transaction_uuid},product_code=${formDatas.product_code}`;
+          const signature = CryptoJS.enc.Base64.stringify(
+            CryptoJS.HmacSHA256(message, '8gBm/:&EnhH.1/q') // Replace with your real key
+          );
+        
+          formDatas.signature = signature;
+        
+          // Create native form element
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = "https://rc-epay.esewa.com.np/api/epay/main/v2/form";
+        
+          // Populate hidden inputs
+          Object.entries(formDatas).forEach(([key, value]) => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = key;
+            input.value = value;
+            form.appendChild(input);
+          });
+        
+          // Submit form
+          document.body.appendChild(form);
+          form.submit();
+          }
   return (
     <Layout>
 
@@ -288,12 +333,15 @@ const Checkout = () => {
                     <div className='pt-2'>
                         <input type="radio" onClick={handlePaymentMethod} defaultChecked={paymentMethod == 'e-sewa'} value={'e-sewa'} />
                         <label htmlFor="" className='form-label ps-2'>E-sewa</label>
-
+                       
                         <input type="radio" onClick={handlePaymentMethod} defaultChecked={paymentMethod == 'cod'} value={'cod'} className='ms-3' />
                         <label htmlFor="" className='form-label ps-2'>Cash on Delivery</label>
                     </div>
                         <div className='d-flex py-3'>
                                 <button className='btn btn-primary'>Pay Now</button>
+                                <button onClick={handleEsewaPayment} className='btn btn-success ms-3'>
+                            Pay with eSewa
+                        </button>
                         </div>
                 </div>
                

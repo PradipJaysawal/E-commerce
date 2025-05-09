@@ -59,7 +59,7 @@ const Header = () => {
                 categories.map((category) => (
                   <Nav.Link
                     key={`cat-${category.id}`}
-                    href={`shop?category=${category.id}`}
+                    href={`/shop?category=${category.id}`}
                   >
                     {category.name}
                   </Nav.Link>

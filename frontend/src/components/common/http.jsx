@@ -1,4 +1,5 @@
 export const apiUrl = 'http://127.0.0.1:8000/api'
+// export const apiUrl = 'http://192.168.1.77:8000/api'
 
 export const adminToken = () => {
     const data = JSON.parse(localStorage.getItem('adminInfo'));

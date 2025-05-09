@@ -44,7 +44,7 @@ const Product = () => {
       })
   }
 
-  const handleAddToCart  =() =>{
+  const handleAddToCart =  () =>{
     if (productSizes.length >0){
       if (sizeSelected == null){
         toast.error("Please select a size")

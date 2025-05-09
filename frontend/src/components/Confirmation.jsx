@@ -10,6 +10,7 @@ const Confirmation = () => {
   const [items, setItems] = useState([]);
   const params = useParams();
 
+  //store esewa 
   const fetchOrder = async () => {
     fetch(`${apiUrl}/get-order-details/${params.id}`, {
       method: 'GET',
