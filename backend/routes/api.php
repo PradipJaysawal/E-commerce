@@ -24,6 +24,7 @@ Route::get('get-categories',[FrontProductController::class,'getCategories']);
 Route::get('get-brands',[FrontProductController::class,'getBrands']);
 Route::get('get-products',[FrontProductController::class,'getProducts']);
 Route::get('get-product/{id}',[FrontProductController::class,'getProduct']);
+Route::get('get-products-by-category/{categoryId}', [FrontProductController::class, 'getProductsByCategory']);
 Route::post('register',[AccountController::class,'register']);
 Route::post('login',[AccountController::class,'authenticate']);
 Route::get('get-shipping-front',[FrontShippingController::class,'getShipping']);

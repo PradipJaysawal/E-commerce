@@ -96,4 +96,18 @@ class ProductController extends Controller
             'data' => $product
         ],200);
     }
+
+    public function getProductsByCategory($categoryId){
+    $products = Product::with('product_images')
+        ->where('category_id', $categoryId)
+        ->where('status', 1)
+        ->latest()
+        ->get();
+
+    return response()->json([
+        'status' => 200,
+        'data' => $products
+    ],200);
+    }
+
 }

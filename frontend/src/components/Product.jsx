@@ -23,6 +23,7 @@ const Product = () => {
   const [sizeSelected, setSizeSelected] = useState(null)
   const params = useParams();
   const { addToCart } = useContext(CartContext)
+  const [relatedProducts, setRelatedProducts] = useState([]);
 
   const fetchProduct = () => {
     fetch(`${apiUrl}/get-product/${params.id}`, {
@@ -38,11 +39,23 @@ const Product = () => {
           setProduct(result.data)
           setProductImages(result.data.product_images)
           setProductSizes(result.data.product_sizes)
+          fetchRelatedProducts(result.data.category_id, result.data.id);
         } else {
           console.log("Something went wrong");
         }
       })
   }
+
+  const fetchRelatedProducts = (categoryId, currentProductId) => {
+  fetch(`${apiUrl}/get-products-by-category/${categoryId}`)
+    .then(res => res.json())
+    .then(result => {
+      if (result.status === 200) {
+        const filtered = result.data.filter(p => p.id !== currentProductId);
+        setRelatedProducts(filtered);
+      }
+    });
+};
 
   const handleAddToCart =  () =>{
     if (productSizes.length >0){
@@ -57,9 +70,12 @@ const Product = () => {
       toast.success("Product added to cart successfully")
     }
   }
+  // useEffect(() => {
+  //   fetchProduct()
+  // }, [])
   useEffect(() => {
-    fetchProduct()
-  }, [])
+  fetchProduct()
+}, [params.id])
 
   return (
     <Layout>
@@ -70,7 +86,7 @@ const Product = () => {
               <ol className='breadcrumb'>
                 <li className='breadcrumb-item'><Link to="/">Home</Link></li>
                 <li className='breadcrumb-item'><Link to="/shop">Shop</Link></li>
-                <li className='breadcrumb-item active' aria-current="page">Dummy product Title</li>
+                <li className='breadcrumb-item active' aria-current="page">{product.title}</li>
               </ol>
             </nav>
           </div>
@@ -202,6 +218,30 @@ const Product = () => {
                 Reviews Area
               </Tab>
             </Tabs>
+                
+                {relatedProducts.length > 0 && (
+                  <div className="row pb-5 pt-3">
+                    <div className="col-md-12">
+                      <h2>Related Products</h2>
+                      <div className="row">
+                        {relatedProducts.map((item) => (
+                          <div key={item.id} className="col-md-3 mb-4">
+                            <Link to={`/product/${item.id}`} className="text-decoration-none text-dark">
+                              <div className="card h-100">
+                                <img src={item.product_images?.[0]?.image_url} alt={item.title} className="card-img-top" />
+                                <div className="card-body">
+                                  <h5 className="card-title">{item.title}</h5>
+                                  <p className="card-text">Rs.{item.price}</p>
+                                </div>
+                              </div>
+                            </Link>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
           </div>
         </div>
       </div>
