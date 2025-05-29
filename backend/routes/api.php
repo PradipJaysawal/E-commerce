@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\front\ShippingController as FrontShippingController;
@@ -79,5 +80,6 @@ Route::group(['middleware' =>[ 'auth:sanctum','checkAdminRole']], function () {
     Route::get('get-shipping',[ShippingController::class,'getShipping']);
     Route::post('save-shipping',[ShippingController::class,'updateShipping']);
 
+     Route::get('dashboard-counts', [DashboardController::class, 'getCounts']);
 
 });
